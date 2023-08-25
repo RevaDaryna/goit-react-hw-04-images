@@ -21,24 +21,26 @@ export default function App(){
     setClickImage(selectedImageURL)
   }
 
-  useEffect(() => {getImages(query, page)}, [query, page, getImages])
+  useEffect(() => {
+    const getImages = async() => {
+      if(page !== 1 || query !== ''){
+        try {
+          setIsLoading(true)
+          const { totalHits, hits } = await getData(query, page);
+          if(hits.length === 0){
+            setIsEmpty(true)
+            return
+          }
+          setImagesList(prevSatate => [...imagesList, ...hits])
+          setIsVisiblBtn(page < Math.ceil(totalHits / 12))
+        }
+          catch (error) {console.log(error)} finally {setIsLoading(false)}
+      }
+      }
+    getImages()}, [query, page])
 
   
-  const getImages = async(query, page) => {
-    if(page !== 1 || query !== ''){
-      try {
-        setIsLoading(true)
-        const { totalHits, hits } = await getData(query, page);
-        if(hits.length === 0){
-          setIsEmpty(true)
-          return
-        }
-        setImagesList(prevSatate => [...imagesList, ...hits])
-        setIsVisiblBtn(page < Math.ceil(totalHits / 12))
-      }
-        catch (error) {console.log(error)} finally {setIsLoading(false)}
-    }
-    }
+
 
   const onCloseModal = () => {
     setClickImage(null)
