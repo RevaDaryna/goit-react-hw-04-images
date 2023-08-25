@@ -4,15 +4,16 @@ import PropTypes from "prop-types";
 
 export default function Modal({largeImageURL, modalClose}){
 
-  useEffect(() => {window.addEventListener('keydown', closeModal)}, [closeModal])
-
+  
   const closeModal = e => {
-      if (e.target === e.currentTarget || e.code === 'Escape') {
-          modalClose();
-      }
-
-      return () =>  {window.removeEventListener('keydown', closeModal)}
+    if (e.target === e.currentTarget || e.code === 'Escape') {
+      modalClose();
+    }
+    
+    return () =>  {window.removeEventListener('keydown', closeModal)}
   }
+  
+  useEffect(() => {window.addEventListener('keydown', closeModal)}, [closeModal])
 
     return ( 
     <div className={css.Overlay} onClick={closeModal}>
