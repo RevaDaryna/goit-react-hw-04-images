@@ -1,19 +1,22 @@
-import { useEffect} from "react";
+import { useEffect, useCallback} from "react";
 import css from './Modal.module.css'
 import PropTypes from "prop-types";
 
 export default function Modal({largeImageURL, modalClose}){
 
   
-  const closeModal = e => {
+  const closeModal = useCallback(e => {
     if (e.target === e.currentTarget || e.code === 'Escape') {
       modalClose();
     }
     
-    return () =>  {window.removeEventListener('keydown', closeModal)}
-  }
+  }, [modalClose])
   
-  useEffect(() => {window.addEventListener('keydown', closeModal)}, [closeModal])
+  useEffect(() => {window.addEventListener('keydown', closeModal)
+
+  return () =>  {window.removeEventListener('keydown', closeModal)}
+
+  }, [closeModal])
 
     return ( 
     <div className={css.Overlay} onClick={closeModal}>
