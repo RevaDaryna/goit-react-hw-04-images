@@ -31,7 +31,7 @@ export default function App(){
             setIsEmpty(true)
             return
           }
-          setImagesList(prevSatate => [...imagesList, ...hits])
+          setImagesList(prevSatate => [...prevSatate, ...hits])
           setIsVisiblBtn(page < Math.ceil(totalHits / 12))
         }
           catch (error) {console.log(error)} finally {setIsLoading(false)}
