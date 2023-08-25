@@ -13,7 +13,6 @@ export default function App(){
   const [page, setPage] = useState(1)
   const [imagesList, setImagesList] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(null)
   const [isEmpty, setIsEmpty] = useState(false)
   const [isVisiblBtn, setIsVisiblBtn] = useState(false)
   const [ClickImage, setClickImage] = useState(null)
@@ -22,7 +21,7 @@ export default function App(){
     setClickImage(selectedImageURL)
   }
 
-  useEffect(() => {getImages(query, page)}, [query, page])
+  useEffect(() => {getImages(query, page)}, [query, page, getImages])
 
   
   const getImages = async(query, page) => {
